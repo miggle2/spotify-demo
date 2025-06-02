@@ -87,7 +87,7 @@ module.exports = (env, argv) => {
       }),
       new CopyWebpackPlugin({
         patterns: [
-          {from: 'src/_redirects', to: '_redirects'},
+          {from: 'src/_redirects', to: '_redirects', toType: 'file'},
         ],
       }),
     ],
