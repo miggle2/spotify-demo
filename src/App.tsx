@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {Suspense, lazy} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Route, Routes } from 'react-router';
 import AppLayout from './layout/AppLayout';
-import HomePage from './pages/HomePage/HomePage';
-import SearchPage from './pages/SearchPage/SearchPage';
-import SearchWithKeywordPage from './pages/SearchWithKeywordPage/SearchWithKeywordPage';
-import PlaylistDetailPage from './pages/PlaylistDetailPage/PlaylistDetailPage';
-import PlaylistPage from './pages/PlaylistPage/PlaylistPage';
+
+//lazy import
+const HomePage = lazy(()=> import('./pages/HomePage/HomePage'));
+const SearchPage = lazy(()=> import('./pages/SearchPage/SearchPage'));
+const SearchWithKeywordPage = lazy(() => import('./pages/SearchWithKeywordPage/SearchWithKeywordPage'));
+const PlaylistDetailPage = lazy(() => import('./pages/PlaylistDetailPage/PlaylistDetailPage'));
+//const PlaylistPage = lazy(() => import('./pages/PlaylistPage/PlaylistPage'));
+
 
 // 0. 사이드바 있어야함 (플레이리스트, 메뉴)
 // 1. 홈페이지  /
@@ -18,15 +21,17 @@ import PlaylistPage from './pages/PlaylistPage/PlaylistPage';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<AppLayout/>}>
-        <Route index element={<HomePage/>}/>
-        <Route path="search" element={<SearchPage/>}/>
-        <Route path="search/:keyword" element={<SearchWithKeywordPage/>}/>
-        <Route path="playlist/:id" element={<PlaylistDetailPage/>}/>
-        {/* <Route path="playlist" element={<PlaylistPage/>}/> */}
-      </Route>
-    </Routes>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<AppLayout/>}>
+          <Route index element={<HomePage/>}/>
+          <Route path="search" element={<SearchPage/>}/>
+          <Route path="search/:keyword" element={<SearchWithKeywordPage/>}/>
+          <Route path="playlist/:id" element={<PlaylistDetailPage/>}/>
+          {/* <Route path="playlist" element={<PlaylistPage/>}/> */}
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
 
