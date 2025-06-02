@@ -84,6 +84,11 @@ module.exports = (env, argv) => {
         allowEmptyValues: true,
         systemvars: true,
       }),
+      new CopyWebpackPlugin({
+        patterns: [
+          {from: 'src/_redirects', to: '_redirects'},
+        ],
+      }),
     ],
   };
 };
