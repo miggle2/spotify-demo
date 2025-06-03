@@ -4,6 +4,8 @@ import { NavLink, Outlet } from 'react-router'
 import { useNavigate } from 'react-router'
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
+import LibraryHead from './LibraryHead';
+import Library from './components/Library';
 
 const Layout = styled("div")({
   display:"flex",
@@ -65,6 +67,10 @@ const AppLayout = () => {
               <Typography variant="h2" fontWeight={700}>Search</Typography>
             </StyledNavList>
           </NavList>
+        </ContentBox>
+        <ContentBox>
+          <LibraryHead></LibraryHead>
+          <Library/>
         </ContentBox>
         </Sidebar>
         <Outlet/>
