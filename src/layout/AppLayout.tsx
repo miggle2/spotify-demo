@@ -47,10 +47,12 @@ const StyledNavList = styled(NavLink)(({theme})=>({
   "&:hover":{
     color:theme.palette.text.primary
   },
-  "&:active":{
+  "&.active":{
     color: theme.palette.text.primary,
+    fontWeight: "bold",
   },
 }));
+
 const AppLayout = () => {
     
   return (
