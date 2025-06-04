@@ -1,43 +1,33 @@
 import React from 'react';
-import { Box, Button, Typography, styled } from '@mui/material';
+import { Box, Button, Card, Typography, styled } from '@mui/material';
 
-const Wrapper = styled(Box)(({ theme }) => ({
-  backgroundColor: '#1a1a1a',
-  padding: '16px',
+
+const EmptyPlaylistCard = styled(Card)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  padding: '20px',
   borderRadius: '8px',
-  width: '100%',
-  maxWidth: '300px',
-  color: '#fff',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '12px',
+
 }));
 
-const WhiteButton = styled(Button)(({ theme }) => ({
-  backgroundColor: '#fff',
-  color: '#000',
-  width: '50%',
-  fontWeight: 'bold',
-  borderRadius: '999px',
-  textTransform: 'none',
-  '&:hover': {
-    backgroundColor: '#f0f0f0',
-  },
+const CreatePlaylistButton = styled(Button)(({ theme }) => ({
+  maginTop: "20px",
+  fontWeight: "700",
 }));
+
 
 const EmptyPlaylist = () => {
   return (
-    <Wrapper>
-      <Typography variant="h6" fontWeight={700}>
+    <EmptyPlaylistCard>
+      <Typography variant="h2" fontWeight={700}>
         Create your first playlist
       </Typography>
-      <Typography variant="body2" color="#b3b3b3">
+      <Typography variant="body2">
         It's easy, we'll help you
       </Typography>
-      <WhiteButton>
+      <CreatePlaylistButton variant="contained" color="secondary">
         Create playlist
-      </WhiteButton>
-    </Wrapper>
+      </CreatePlaylistButton>
+    </EmptyPlaylistCard>
   );
 };
 
