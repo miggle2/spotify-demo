@@ -4,20 +4,21 @@ import React from 'react'
 import PlayButton from './PlayButton';
 
 interface CardProps {
-    name:string;
-    image:string;
-    artistName:string | undefined;
+    name: string | undefined;
+    image: string | undefined;
+    artistName?: string | undefined;
 }
 
-const CardFrame = styled("div")(({theme})=>({
+const CardFrame = styled("div")(({ theme }) => ({
     position: 'relative',
     padding: "4px",
     overflow: 'hidden',
+    borderRadius: "8px",
     '&:hover .hover-button': {
         opacity: 1,
         pointerEvents: 'auto',
     }
-    
+
 }))
 
 const HoverButtonWrapper = styled('div')({
@@ -30,17 +31,23 @@ const HoverButtonWrapper = styled('div')({
     pointerEvents: 'none',
 });
 
-const Card = ({image, name, artistName}:CardProps) => {
-  return (
-    <CardFrame>
-        <img src={image} width={"100%"} />
-        <Typography fontWeight={600} mt={1}>{name}</Typography>
-        <Typography variant="body2" color="text.secondary">{artistName}</Typography>
-        <HoverButtonWrapper className="hover-button">
-            <PlayButton/>
-        </HoverButtonWrapper>
-    </CardFrame>
-  )
+const EllipsisTypography = styled(Typography)({
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+});
+
+const Card = ({ image, name, artistName }: CardProps) => {
+    return (
+        <CardFrame>
+            <img src={image} width={"100%"} />
+            <EllipsisTypography fontWeight={600} mt={1}>{name || "No name"}</EllipsisTypography>
+            <EllipsisTypography variant="body2" color="text.secondary" >{artistName || "No artist"}</EllipsisTypography>
+            <HoverButtonWrapper className="hover-button">
+                <PlayButton />
+            </HoverButtonWrapper>
+        </CardFrame>
+    )
 }
 
 export default Card
