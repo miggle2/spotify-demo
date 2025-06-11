@@ -1,8 +1,11 @@
 import React from 'react'
 import { Navigate, useParams } from 'react-router';
 import useGetPlaylist from '../../hooks/useGetPlaylist';
-import { Box, Grid, styled, Typography } from '@mui/material';
+import { Box, Grid, styled, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import DefaultImage from '../../common/components/DefaultImage';
+import useGetPlaylistItems from '../../hooks/useGetPlaylistItems';
+import DesktopPlaylistItem from './components/DesktopPlaylistItem';
+import { PAGE_LIMIT } from '../../configs/commonConfig';
 
 const PlaylistHeader = styled(Grid)({
   display: "flex",
@@ -40,7 +43,17 @@ const PlaylistDetailPage = () => {
   if (id === undefined) return <Navigate to="/" />
   const { data: playlist } = useGetPlaylist({ playlist_id: id })
 
-  // console.log("dd", playlist)
+  const {
+    data: playlistItems,
+    isLoading: isPlaylistItemsLoading,
+    error: playlistItemsLoading,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useGetPlaylistItems({ playlist_id: id, limit: PAGE_LIMIT, offset: 0 });
+
+  console.log("dd", playlistItems)
+
   return (
     <div>
       <PlaylistHeader container spacing={7}>
@@ -81,6 +94,29 @@ const PlaylistDetailPage = () => {
           </Box>
         </Grid>
       </PlaylistHeader>
+      {playlist?.tracks?.total === 0 ? <Typography>써치</Typography>
+        : (<Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>#</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Album</TableCell>
+              <TableCell>Date added</TableCell>
+              <TableCell>Duration</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {playlistItems?.pages.map((page, pageIndex) =>
+              page.items.map((item, itemIndex) => {
+                return <DesktopPlaylistItem
+                  item={item}
+                  key={itemIndex}
+                  index={pageIndex * PAGE_LIMIT + itemIndex + 1} />
+              })
+            )}
+          </TableBody>
+        </Table>
+        )}
     </div>
   )
 }
