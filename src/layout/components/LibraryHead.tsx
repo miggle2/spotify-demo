@@ -2,6 +2,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, IconButton, styled, Typography } from '@mui/material';
 import useCreatePlaylist from '../../hooks/useCreatePlaylist';
+import { getSpotifyAuthUrl } from '../../utils/auth';
 
 const Head = styled("div")({
   display: "flex",
@@ -25,7 +26,11 @@ const GreenAddButton = styled(IconButton)(({ theme }) => ({
 const LibraryHead = () => {
   const { mutate: createPlaylist } = useCreatePlaylist();
   const handleCreatePlaylist = () => {
-    createPlaylist({ name: "나의 플레이 리스트" })
+    if(!localStorage.getItem("access_token")){
+      getSpotifyAuthUrl()
+    }else{
+      createPlaylist({ name: "나의 플레이 리스트" })
+    }
   }
   return (
     <div>

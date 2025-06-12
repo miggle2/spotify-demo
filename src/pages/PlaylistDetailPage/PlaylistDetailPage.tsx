@@ -142,7 +142,7 @@ const PlaylistDetailPage = () => {
       </PlaylistHeader>
       <PlaylistContainer id="playlist-container">
         {playlist?.tracks?.total === 0 ? <Typography>써치</Typography>
-          : (<StyledTable>
+          : (<StyledTable stickyHeader>
             <TableHead>
               <TableRow>
                 <TableCell>#</TableCell>

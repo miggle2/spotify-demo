@@ -1,5 +1,8 @@
 import React from 'react';
 import { Box, Button, Card, Typography, styled } from '@mui/material';
+import { getSpotifyAuthUrl } from '../../utils/auth';
+import { createPlaylist } from '../../apis/playlistApi';
+import useCreatePlaylist from '../../hooks/useCreatePlaylist';
 
 
 const EmptyPlaylistCard = styled(Card)(({ theme }) => ({
@@ -16,6 +19,15 @@ const CreatePlaylistButton = styled(Button)(({ theme }) => ({
 
 
 const EmptyPlaylist = () => {
+  const { mutate: createPlaylist } = useCreatePlaylist();
+  const handleCreatePlaylist = () => {
+      if(!localStorage.getItem("access_token")){
+        getSpotifyAuthUrl()
+      }else{
+        createPlaylist({ name: "나의 플레이 리스트" })
+      }
+    }
+
   return (
     <EmptyPlaylistCard>
       <Typography variant="h2" fontWeight={700}>
@@ -24,7 +36,7 @@ const EmptyPlaylist = () => {
       <Typography variant="body2">
         It's easy, we'll help you
       </Typography>
-      <CreatePlaylistButton variant="contained" color="secondary">
+      <CreatePlaylistButton variant="contained" color="secondary" onClick={handleCreatePlaylist}>
         Create playlist
       </CreatePlaylistButton>
     </EmptyPlaylistCard>
