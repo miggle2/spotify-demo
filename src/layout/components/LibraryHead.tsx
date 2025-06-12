@@ -1,6 +1,7 @@
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, IconButton, styled, Typography } from '@mui/material';
+import useCreatePlaylist from '../../hooks/useCreatePlaylist';
 
 const Head = styled("div")({
   display: "flex",
@@ -22,14 +23,18 @@ const GreenAddButton = styled(IconButton)(({ theme }) => ({
 
 
 const LibraryHead = () => {
+  const { mutate: createPlaylist } = useCreatePlaylist();
+  const handleCreatePlaylist = () => {
+    createPlaylist({ name: "나의 플레이 리스트" })
+  }
   return (
     <div>
       <Head>
         <Box display="flex">
-          <BookmarkIcon sx={{marginRight:"20px"}}/>
+          <BookmarkIcon sx={{ marginRight: "20px" }} />
           <Typography variant="h2" fontWeight={700}>Your Library</Typography>
         </Box>
-        <GreenAddButton>
+        <GreenAddButton onClick={handleCreatePlaylist}>
           <AddIcon />
         </GreenAddButton>
       </Head>
