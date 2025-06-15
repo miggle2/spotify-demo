@@ -10,6 +10,7 @@ import LoadingSpinner from '../../common/components/LoadingSpinner';
 import { useInView } from 'react-intersection-observer';
 import ErrorMessage from '../../common/components/ErrorMessage';
 import LoginButton from '../../common/components/LoginButton';
+import EmptyPlaylistWithSearch from './components/EmptyPlaylistWithSearch';
 
 const PlaylistHeader = styled(Grid)({
   display: "flex",
@@ -160,7 +161,7 @@ const PlaylistDetailPage = () => {
         </Grid>
       </PlaylistHeader>
       <PlaylistContainer id="playlist-container">
-        {playlist?.tracks?.total === 0 ? <Typography>써치</Typography>
+        {playlist?.tracks?.total === 0 ? <EmptyPlaylistWithSearch/>
           : (<StyledTable stickyHeader>
             <TableHead>
               <TableRow>
@@ -183,7 +184,7 @@ const PlaylistDetailPage = () => {
             </TableBody>
           </StyledTable>
           )}
-        <div ref={ref}>?{isFetchingNextPage && <LoadingSpinner />}</div>
+        <div ref={ref}>{isFetchingNextPage && <LoadingSpinner />}</div>
       </PlaylistContainer>
     </div>
   )
